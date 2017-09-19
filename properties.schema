@@ -7,7 +7,7 @@
     "ariaRegion": {
       "type": "string",
       "required": true,
-      "default": "",
+      "default": "Enter a good description here to be read out by screen readers",
       "inputType": "Text",
       "validators": [],
       "translatable": true
@@ -29,53 +29,312 @@
       "validators": [],
       "help": "This is the instruction text"
     },
-    "_items": {
-      "type": "array",
-      "required": true,
-      "title": "Items",
-      "items": {
-        "type": "object",
-        "required": true,
-        "properties": {
-          "body": {
-            "type": "string",
-            "required": true,
-            "inputType": "TextArea",
-            "title": "Item Body",
-            "default": "",
-            "validators": ["required"],
-            "help": "This is the optional item body text",
-            "translatable": true
+    "_attempts": {
+      "type":"number",
+      "required":true,
+      "default":1,
+      "title": "Attempts",
+      "inputType":"Number",
+      "validators": ["required", "number"],
+      "help": "How many attempts the learner is allowed"
+    },
+    "_canShowModelAnswer": {
+      "type":"boolean",
+      "required":true,
+      "default": true,
+      "title": "Display Model Answer",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "Select 'true' to allow the user to view the 'model answer' should they answer the question incorrectly"
+    },
+    "_canShowFeedback": {
+      "type":"boolean",
+      "required":true,
+      "default": true,
+      "title": "Display Feedback",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "Select 'true' to allow the user to view feedback on their answer"
+    },
+    "_canShowMarking": {
+      "type": "boolean",
+      "default": true,
+      "title": "Display Marking",
+      "inputType": { "type": "Boolean", "options": [ true, false ] },
+      "validators": [],
+      "help": "Select 'true' to display ticks and crosses on question completion"
+    },
+    "_shouldDisplayAttempts": {
+      "type":"boolean",
+      "required":false,
+      "default": false,
+      "title": "Display Attempts",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "Select 'true' to display the numbers of attempts left"
+    },
+    "_isRandom": {
+      "type":"boolean",
+      "required":false,
+      "default": false,
+      "title": "Randomised Items",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "If set to 'true', all items will be randomised"
+    },
+    "_recordInteraction": {
+      "type":"boolean",
+      "required":false,
+      "default": true,
+      "title": "Record interaction",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "If set to 'true', the user's answer(s) will be recorded to cmi.interactions on the LMS (where supported)."
+    },
+    "_questionWeight": {
+      "type":"number",
+      "required":false,
+      "default": 1,
+      "title": "Question Weight",
+      "inputType": "Number",
+      "validators": ["number"],
+      "help": "How much this question is worth"
+    },
+    "_selectable": {
+      "type":"number",
+      "required":true,
+      "default": 1,
+      "title": "Selectable Items",
+      "inputType": "Number",
+      "validators": ["number", "required"],
+      "help": "How many items are selectable"
+    },
+    "_feedback": {
+      "type":"object",
+      "required": false,
+      "title": "Feedback",
+      "properties":{
+        "correct": {
+          "type":"string",
+          "required": false,
+          "default": "",
+          "title": "Correct",
+          "inputType": "TextArea",
+          "validators": [],
+          "help": "Correct feedback for this question",
+          "translatable": true
+        },
+        "_incorrect": {
+          "type":"object",
+          "required": false,
+          "title": "Incorrect Feedback",
+          "properties":{
+            "final": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "Incorrect Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Incorrect feedback for the final attempt",
+              "translatable": true
+            },
+            "notFinal": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "Incorrect Not Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Incorrect feedback for any attempt apart from the last attempt",
+              "translatable": true
+            }
+          }
+        },
+        "_partlyCorrect": {
+          "type":"object",
+          "required":false,
+          "properties":{
+            "final": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "Partly Correct Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Partly correct feedback for the final attempt",
+              "translatable": true
+            },
+            "notFinal": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "Partly Correct Not Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Partly correct feedback for any attempt apart from the last attempt",
+              "translatable": true
+            }
           }
         }
       }
     },
-    "_button": {
-      "type": "object",
+    "_buttons": {
+      "type":"object",
+      "title": "Buttons",
       "required": false,
-      "properties": {
-        "startText": {
-          "type": "string",
+      "properties":{
+        "_submit": {
+          "type":"object",
+          "title": "Submit",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text for the submit button",
+              "translatable": true
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Aria label for the submit button",
+              "translatable": true
+            }
+          }
+        },
+        "_reset": {
+          "type":"object",
+          "title": "Reset",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text for the reset button",
+              "translatable": true
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Aria label for the reset button",
+              "translatable": true
+            }
+          }
+        },
+        "_showCorrectAnswer": {
+          "type":"object",
+          "title": "Show Correct Answer",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text to show the model answer",
+              "translatable": true
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Aria label for the show model answer button",
+              "translatable": true
+            }
+          }
+        },
+        "_hideCorrectAnswer": {
+          "type":"object",
+          "title": "Hide Correct Answer",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text to hide the model answer",
+              "translatable": true
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Aria label for the hide model answer button",
+              "translatable": true
+            }
+          }
+        },
+        "_showFeedback": {
+          "type":"object",
+          "title": "Show Feedback",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text to show feedback",
+              "translatable": true
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Aria label for the show feedback button",
+              "translatable": true
+            }
+          }
+        },
+        "remainingAttemptsText": {
+          "type":"string",
           "required": false,
-          "default": "Click here to begin",
-          "inputType": "Text",
+          "default": "",
+          "title": "Attempts Remaining Text",
+          "inputType": "QuestionButton",
           "validators": [],
-          "title": "Start button text",
-          "help": "",
+          "help": "Shown when there are multiple attempts left",
           "translatable": true
         },
-        "continueText": {
-          "type": "string",
+        "remainingAttemptText": {
+          "type":"string",
           "required": false,
-          "default": "Next",
-          "inputType": "Text",
+          "default": "",
+          "title": "Final Attempt Text",
+          "inputType": "QuestionButton",
           "validators": [],
-          "title": "Next button text",
-          "help": "",
+          "help": "Shown when there is one attempt left",
           "translatable": true
         }
       }
-
     }
   }
 }
