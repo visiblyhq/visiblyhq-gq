@@ -49,6 +49,7 @@ define([
          * Used to set the score based upon the _questionWeight
          */
         setScore: function() {
+            // You may wish to expand on the following
             var questionWeight = this.get('_questionWeight');
             var score = this.get('_isCorrect') ? questionWeight : 0;
             this.set('_score', score);
@@ -61,7 +62,7 @@ define([
         isPartlyCorrect: function() {},
 
         /**
-         * Used by the question view to reset the stored user answer
+         * Resets the stored user answer
          */
         resetUserAnswer: function() {},
     });
