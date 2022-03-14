@@ -2,24 +2,43 @@ import Adapt from 'core/js/adapt';
 import React from 'react';
 import { compile, classes, templates, html } from 'core/js/reactHelpers';
 
-export default function (model, view) {
-  const data = model.toJSON();
-  data._globals = Adapt.course.get('_globals');
+export default function (props) {
+  const _globals = Adapt.course.get('_globals');
+  
+  const {
+    _id,
+    _isEnabled,
+    _isInteractionComplete,
+    _isCorrect,
+    _isCorrectAnswerShown,
+    _shouldShowMarking,
+    displayTitle,
+    body,
+    instruction
+  } = props;
+  
   return (
-    <div className="component__inner component__inner">
+    <div className="componentName__inner component__inner">
+      
+      <templates.header {...props} />
 
-      <div className="component__widget component__widget">
-        <div class="componentName__inner component__inner" role="region" aria-label="{{_globals._components._componentName.ariaRegion}}">
-          {templates.component(model, view)}
+      <div 
+        className={classes([
+          'component__widget',
+          'componentName__widget',
+          !_isEnabled && 'is-disabled',
+          _isInteractionComplete && 'is-complete is-submitted show-user-answer',
+          _isCorrect && 'is-correct'
+        ])}
+      >
 
-          <div class="componentName__widget component__widget">
-              {/* Do your stuff here */}
-          </div>
+        {/* Do your stuff here */}
 
-          {/* This ensures that the standard question component buttons are automatically rendered into your view */}
-          <div class="btn__container"></div>
-        </div>
       </div>
+
+      {/* This ensures that the standard question component buttons are automatically rendered into your view */}
+      <div className="btn__container"></div>
+
     </div>
   );
 }
