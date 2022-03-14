@@ -1,8 +1,8 @@
 {
   "name": "adapt-componentName",
   "description": "DESCRIPTION",
-  "version": "0.0.1",
-  "framework": ">=2.2.0",
+  "version": "1.0.0",
+  "framework": ">=5.19",
   "displayName": "componentDisplayName",
   "component": "componentName",
   "main": "/js/adapt-componentName.js",

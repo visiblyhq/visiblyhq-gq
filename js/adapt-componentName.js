@@ -1,12 +1,8 @@
-define([
-    'core/js/adapt',
-    './componentNameView',
-    './componentNameModel'
-], function(Adapt, ComponentNameView, ComponentNameModel) {
+import Adapt from 'core/js/adapt';
+import ComponentNameView from './componentNameView';
+import ComponentNameModel from './componentNameModel';
 
-    return Adapt.register("componentName", {
-        view: ComponentNameView,
-        model: ComponentNameModel
-    });
-
+export default Adapt.register('componentName', {
+  view: ComponentNameView,
+  model: ComponentNameModel
 });
