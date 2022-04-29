@@ -56,7 +56,7 @@ export default class ComponentNameModel extends QuestionModel {
    * Returns a numerical value between maxScore and minScore
    * @type {number}
    */
-   get score() {
+  get score() {
     return this.get('_isCorrect') ? this.maxScore : 0;
   }
 

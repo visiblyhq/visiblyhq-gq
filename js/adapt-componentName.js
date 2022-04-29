@@ -1,8 +1,8 @@
-import Adapt from 'core/js/adapt';
+import components from 'core/js/components';
 import ComponentNameView from './componentNameView';
 import ComponentNameModel from './componentNameModel';
 
-export default Adapt.register('componentName', {
+export default components.register('componentName', {
   view: ComponentNameView,
   model: ComponentNameModel
 });
