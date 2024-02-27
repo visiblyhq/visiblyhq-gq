@@ -1,0 +1,37 @@
+{
+    "_id":"c-05",
+    "_parentId":"b-05",
+    "_type":"component",
+    "_component":"grouping",
+    "_classes":"",
+    "_layout":"left",
+    "title":"Grouping Component",
+    "displayTitle":"Grouping Component",
+    "body":"",
+    "instruction":"Drag and drop each item from the list in the right group and select Submit.",
+    "firstGroup": {
+        "title": "Group 1",
+        "name": "group1"
+    },
+    "secondGroup": {
+        "title": "Group 2",
+        "name": "group2"
+    },
+    "options": {
+        "text": "Pick option two",
+        "_items": [
+            {
+                "text": "Option one",
+                "groupName": "group1"
+            },
+            {
+                "text": "Option two (correct)",
+                "groupName": "group1"
+            },
+            {
+                "text": "Option three",
+                "groupName": "group2"
+            }
+        ]
+    }
+}
