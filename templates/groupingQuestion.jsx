@@ -29,7 +29,12 @@ export default function (props) {
           put: false
         },
         animation: 100,
-        sort: false
+        sort: false,
+        ghostClass: 'sortable-no-ghost',
+        onStart: (event) => {
+          // Set the display style of the original item to 'none'
+          event.from.children[event.oldIndex].style.opacity = 0;
+        }
       });
     }
 
@@ -50,6 +55,15 @@ export default function (props) {
           }
 
           incrementItemsSorted();
+          evt.item.style.opacity = 1;
+        },
+        onStart: (event) => {
+          // Set the display style of the original item to 'none'
+          event.from.children[event.oldIndex].style.opacity = 0;
+        },
+        onEnd: (event) => {
+          // Set the display style of the original item back to ''
+          event.to.children[event.newIndex].style.opacity = 1;
         }
       });
     }
@@ -71,6 +85,15 @@ export default function (props) {
           }
 
           incrementItemsSorted();
+          evt.item.style.opacity = 1;
+        },
+        onStart: (event) => {
+          // Set the display style of the original item to 'none'
+          event.from.children[event.oldIndex].style.opacity = 0;
+        },
+        onEnd: (event) => {
+          // Set the display style of the original item back to ''
+          event.to.children[event.newIndex].style.opacity = 1;
         }
       });
     }
@@ -85,8 +108,7 @@ export default function (props) {
         className={classes([
           'component__widget',
           !_isEnabled && 'is-disabled',
-          _isInteractionComplete && 'is-complete is-submitted show-user-answer',
-          _isCorrect && 'is-correct'
+          _isInteractionComplete && 'is-complete is-submitted show-user-answer'
         ])}
       >
         <h3>{options.name}</h3>

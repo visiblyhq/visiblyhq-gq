@@ -61,6 +61,8 @@ export default class GroupingQuestionModel extends QuestionModel {
     const userAnswer = this.get('_userAnswer');
 
     // TODO: Write your restoration code here
+    this.resetItemsSorted();
+    this.resetGroupingIsCorrect();
 
     this.setQuestionAsSubmitted();
     this.markQuestion();
